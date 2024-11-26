@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">MD_Lab06__Activity</string>
+    <string name="app_name">NewActivity</string>
+    <string name="btnShowPicText">Кнопка с картинкой</string>
 </resources>
