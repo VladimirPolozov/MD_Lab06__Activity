@@ -1,5 +1,6 @@
 package com.example.md_lab06__activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -41,6 +42,13 @@ class PicViewer : AppCompatActivity() {
 
         if (id == R.id.favorite) {
             Toast.makeText(this, "Добавлено в Избранное", Toast.LENGTH_SHORT).show()
+
+            val picLink = intent.getStringExtra("picLink")
+            val resultIntent = Intent().putExtra("picLink", picLink)
+
+            setResult(RESULT_OK, resultIntent)
+            finish()
+            return true
         }
 
         return super.onOptionsItemSelected(item)
