@@ -24,7 +24,7 @@ class PicViewer : AppCompatActivity() {
         }
 
         val picLink = intent.getStringExtra("picLink")
-        val picView: ImageView = findViewById(R.id.pic_viewer)
+            val picView: ImageView = findViewById(R.id.picView)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
 
         setSupportActionBar(toolbar)
