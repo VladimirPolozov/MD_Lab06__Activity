@@ -3,6 +3,7 @@ package com.example.md_lab06__activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -63,9 +64,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onImageClick(link: String) {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("Copied", link)
-        clipboard.setPrimaryClip(clip)
+        val intent = Intent(this, PicViewer::class.java)
+        intent.putExtra("picLink", link)
+        startActivity(intent)
         Timber.i(link)
     }
 }
