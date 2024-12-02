@@ -3,6 +3,8 @@ package com.example.md_lab06__activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -63,9 +66,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onImageClick(link: String) {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("Copied", link)
-        clipboard.setPrimaryClip(clip)
+        val intent = Intent(this, PicViewer::class.java)
+        intent.putExtra("picLink", link)
+        startActivityForResult(intent, 1)
         Timber.i(link)
+    }
+
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            val snackbar = Snackbar.make(findViewById(R.id.main), "Картинка добавлена в избранное", Snackbar.LENGTH_LONG)
+            snackbar.setAction("Открыть") {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data?.getStringExtra("picLink")))
+                startActivity(browserIntent)
+            }
+            snackbar.show()
+        }
     }
 }

@@ -25,7 +25,7 @@ class PicViewer : AppCompatActivity() {
         }
 
         val picLink = intent.getStringExtra("picLink")
-        val picView: ImageView = findViewById(R.id.pic_viewer)
+        val picView: ImageView = findViewById(R.id.picView)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
 
         setSupportActionBar(toolbar)
@@ -38,13 +38,10 @@ class PicViewer : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        if (id == R.id.favorite) {
+        if (item.itemId == R.id.favorite) {
             Toast.makeText(this, "Добавлено в Избранное", Toast.LENGTH_SHORT).show()
 
-            val picLink = intent.getStringExtra("picLink")
-            val resultIntent = Intent().putExtra("picLink", picLink)
+            val resultIntent = Intent().putExtra("picLink", intent.getStringExtra("picLink"))
 
             setResult(RESULT_OK, resultIntent)
             finish()
